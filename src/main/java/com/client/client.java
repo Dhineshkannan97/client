@@ -4,7 +4,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 public class client {
-    public void clientServer(String ip ,int port){
+    public void clientServer(String ip ,int port) throws IOException {
         Socket s ;
         DataOutputStream out ;
         DataInputStream input;
@@ -21,6 +21,7 @@ public class client {
                 line = input.readLine();
                 out.writeUTF(line);
             } catch (IOException e) {
+                s.close();
                 throw new RuntimeException(e);
             }
         }
@@ -29,11 +30,11 @@ public class client {
             out.close();
             s.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+//            throw new RuntimeException(e);
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         client client= new client();
         client.clientServer("localhost",5000);
     }
