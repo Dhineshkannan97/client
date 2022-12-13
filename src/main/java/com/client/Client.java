@@ -3,7 +3,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-public class client {
+public class Client {
     public void clientServer(String ip ,int port) throws IOException {
         Socket s ;
         DataOutputStream out ;
@@ -26,8 +26,6 @@ public class client {
             }
         }
         try{
-            input.close();
-            out.close();
             s.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -35,7 +33,7 @@ public class client {
     }
 
     public static void main(String[] args) throws IOException {
-        client client= new client();
-        client.clientServer("localhost",5000);
+        Client client1=new Client();
+        client1.clientServer("localhost",5000);
     }
 }
