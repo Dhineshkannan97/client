@@ -6,14 +6,17 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class Client {
-    public void clientServer(String ip, int port) throws IOException {
-        Socket s;
-        DataOutputStream out;
+    public Client() {
+    }
+
+    public void clientServer() {
+        Socket socket;
+        DataOutputStream output;
         DataInputStream input;
         try {
-            s = new Socket(ip, port);
+            socket = new Socket("localhost", 5000);
             input = new DataInputStream(System.in);
-            out = new DataOutputStream(s.getOutputStream());
+            output = new DataOutputStream(socket.getOutputStream());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -21,23 +24,23 @@ public class Client {
         while (!line.equals("end")) {
             try {
                 line = input.readLine();
-                out.writeUTF(line);
+                output.writeUTF(line);
                 System.out.println(line);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
         try {
-            s.close();
+            socket.close();
             input.close();
-            out.close();
+            output.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Client client1 = new Client();
-        client1.clientServer("localhost", 5000);
+        client1.clientServer();
     }
 }
